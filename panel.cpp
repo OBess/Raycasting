@@ -129,7 +129,7 @@ void Panel::changeBoundaryColor(){
 }
 void Panel::changeAddingAngle(){
     bool ok;
-    float angle = QInputDialog::getDouble(this, tr("Change adding angle"), tr("Angle"), _angle, 0.1f, 360, 1, &ok);
+    float angle = QInputDialog::getDouble(this, tr("Change adding angle"), tr("Angle"), _angle, 0.00001f, 360, 10000, &ok);
     if(ok){
         _angle = angle;
         _init();
