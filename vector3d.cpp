@@ -143,6 +143,12 @@ Vector3D& Vector3D::rotateAngle2D(float angle){
 
 
 //Staitcs
+float Vector3D::lerp(float a, float b, float t){
+    return a + (b - a) * t;
+}
+float Vector3D::qunticCurve(float t){
+    return t * t * t * (t * (t * 6 - 15) + 10);
+}
 Vector3D Vector3D::one(){
     return Vector3D(1, 1, 1);
 }

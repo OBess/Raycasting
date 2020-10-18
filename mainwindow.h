@@ -28,6 +28,10 @@ private slots:
     void on_actionChange_added_angle_triggered();
     void on_actionChange_boundary_color_triggered();
 
+    void on_actionChange_mode_triggered();
+
+    void on_actionReset_triggered();
+
 private:
     Ui::MainWindow *ui;
     Panel* _panel;

@@ -6,6 +6,7 @@
 #include <vector>
 #include <ctime>
 #include <limits>
+#include <thread>
 
 //qt
 #include <QDebug>
@@ -16,6 +17,7 @@
 #include <QInputDialog>
 #include <QColorDialog>
 #include <QDir>
+#include <QTimer>
 
 //custom
 #include <vector3d.h>
@@ -30,6 +32,7 @@ class Panel : public QWidget
     Q_OBJECT
 public:
     explicit Panel(QWidget *parent = nullptr);
+    ~Panel();
 
     void keyPressEvent(QKeyEvent *event) override;
     void changeRayColor();
@@ -37,6 +40,8 @@ public:
     void changeAddingAngle();
     void changeCountBoundaries();
     void rasizeWindow();
+    void changeMode();
+    void reset();
 
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -53,13 +58,17 @@ private:
     std::vector<Vector3D> dots;
 
     Vector3D _circle;
+    Vector3D _mouse_pos;
+
     QWidget *parent;
 
     QColor _color_rays;
     QColor _color_boundaries;
+    QTimer *_timer;
     int _count_boundaries;
     float _angle;
     float _circle_size;
+    bool _mode;
     bool _move;
 };
 

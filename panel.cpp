@@ -7,6 +7,8 @@ Panel::Panel(QWidget *p) : QWidget(p)
     this->setGeometry(p->geometry());
     parent = p;
     p = NULL;
+    _timer = NULL;
+    _mode = true;
 
     _color_rays = "#FFFFFF";
     _color_boundaries = "#FFFFFF";
@@ -15,18 +17,36 @@ Panel::Panel(QWidget *p) : QWidget(p)
 
     _init();
 }
+Panel::~Panel(){
+    delete _timer;
+}
 //~Main
 
 
 //Init
 void Panel::_init(){
+    if(_timer != NULL)
+        delete _timer;
+    _timer = new QTimer;
+    connect(_timer, &QTimer::timeout, this, [this]{
+        float x = Vector3D::lerp(_circle.x(), _mouse_pos.x(), 0.1f);
+        float y = Vector3D::lerp(_circle.y(), _mouse_pos.y(), 0.1f);
+        _circle.x(x);
+        _circle.y(y);
+        updateCircle();
+        update();
+    });
+    _timer->start(20);
+
     rays.clear();
     boundraies.clear();
 
     float startX = width() / 2;
     float startY = height() / 2;
 
+    _move = false;
     _circle = Vector3D(startX, startY);
+    _mouse_pos = _circle;
     _circle_size = 0;
 
     for(float angle = 0; angle <= 360; angle += _angle)
@@ -73,6 +93,8 @@ void Panel::paintEvent(QPaintEvent *e){
     p.drawEllipse(_circle.x() - _circle_size / 2, _circle.y() - _circle_size / 2, _circle_size, _circle_size);
     for(size_t i = 0; i < dots.size(); i++)
         p.drawLine(_circle.x(), _circle.y(), dots.at(i).x(), dots.at(i).y());
+
+    update();
 }
 void Panel::keyPressEvent(QKeyEvent *event){
     if(event->key() == Qt::Key_Up || event->key() == Qt::Key_W)
@@ -95,14 +117,14 @@ void Panel::keyPressEvent(QKeyEvent *event){
         _circle.decrX(4);
         updateCircle();
     }
-    if(event->key() == Qt::Key_R){
-        _init();
-    }
 }
 void Panel::mouseMoveEvent(QMouseEvent *event){
     if(_move){
-        _circle.vector(Vector3D(event->x(), event->y()));
-        updateCircle();
+        _mouse_pos = Vector3D(event->x(), event->y());
+        if(_mode){
+            _circle.vector(Vector3D(event->x(), event->y()));
+            updateCircle();
+        }
     }
 }
 void Panel::mousePressEvent(QMouseEvent *event){
@@ -145,6 +167,12 @@ void Panel::changeCountBoundaries(){
 }
 void Panel::rasizeWindow(){
     this->setGeometry(x(), y(), parent->width(), parent->height());
+    _init();
+}
+void Panel::changeMode(){
+    _mode = !_mode;
+}
+void Panel::reset(){
     _init();
 }
 //~User settings

@@ -31,6 +31,8 @@
     <addaction name="actionChange_count_boundaries"/>
     <addaction name="actionChange_added_angle"/>
     <addaction name="actionChange_boundary_color"/>
+    <addaction name="actionChange_mode"/>
+    <addaction name="actionReset"/>
    </widget>
    <addaction name="menuSettings"/>
   </widget>
@@ -65,6 +67,22 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionChange_mode">
+   <property name="text">
+    <string>Change mode</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
+   </property>
+  </action>
+  <action name="actionReset">
+   <property name="text">
+    <string>Reset</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
    </property>
   </action>
  </widget>

@@ -22,12 +22,12 @@ public:
     Vector3D& x(float x);
     Vector3D& y(float y);
     Vector3D& z(float z);
-    Vector3D& incrX(float x = 0);
-    Vector3D& incrY(float y = 0);
-    Vector3D& incrZ(float z = 0);
-    Vector3D& decrX(float x = 0);
-    Vector3D& decrY(float y = 0);
-    Vector3D& decrZ(float z = 0);
+    Vector3D& incrX(float x = 1);
+    Vector3D& incrY(float y = 1);
+    Vector3D& incrZ(float z = 1);
+    Vector3D& decrX(float x = 1);
+    Vector3D& decrY(float y = 1);
+    Vector3D& decrZ(float z = 1);
 
     float len();
     Vector3D copy();
@@ -43,6 +43,8 @@ public:
     Vector3D& normalize();
     Vector3D prod(const Vector3D vector);
 
+    static float lerp(float a, float b, float t);
+    static float qunticCurve(float t);
     static Vector3D one();
     static Vector3D zero();
     static Vector3D neg();

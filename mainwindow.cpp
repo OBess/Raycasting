@@ -47,6 +47,12 @@ void MainWindow::on_actionChange_boundary_color_triggered()
 {
     this->_panel->changeBoundaryColor();
 }
+void MainWindow::on_actionChange_mode_triggered()
+{
+    this->_panel->changeMode();
+}
+void MainWindow::on_actionReset_triggered()
+{
+    this->_panel->reset();
+}
 //~Slots
-
-
